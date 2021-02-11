@@ -43,6 +43,7 @@ mod util {
         match transport {
             Transport::Udp => false,
             Transport::Tcp => true,
+            Transport::Ws => true,
         }
     }
 }
@@ -154,10 +155,11 @@ fn ping_pong_client_manager_handle(
         .unwrap()
 }
 
-#[test_case(Transport::Udp, 1)]
-#[test_case(Transport::Udp, 100)]
-#[test_case(Transport::Tcp, 1)]
-#[test_case(Transport::Tcp, 100)]
+//#[test_case(Transport::Udp, 1)]
+//#[test_case(Transport::Udp, 100)]
+//#[test_case(Transport::Tcp, 1)]
+//#[test_case(Transport::Tcp, 100)]
+#[test_case(Transport::Ws, 1)]
 fn ping_pong(transport: Transport, clients: usize) {
     util::init_logger();
 
@@ -168,8 +170,8 @@ fn ping_pong(transport: Transport, clients: usize) {
     client_handle.join().unwrap();
 }
 
-#[test_case(Transport::Udp, MAX_SIZE_BY_UDP)] //8 bytes of Vec head serialization
-#[test_case(Transport::Tcp, BIG_MESSAGE_SIZE)]
+//#[test_case(Transport::Udp, MAX_SIZE_BY_UDP)] //8 bytes of Vec head serialization
+//#[test_case(Transport::Tcp, BIG_MESSAGE_SIZE)]
 fn message_size(transport: Transport, message_size: usize) {
     util::init_logger();
 

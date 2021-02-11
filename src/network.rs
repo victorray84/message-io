@@ -7,6 +7,7 @@ use crate::driver::{AdapterEvent};
 use crate::adapters::{
     tcp::{TcpAdapter},
     udp::{UdpAdapter},
+    web_socket::{WsAdapter},
 };
 
 use serde::{Serialize, Deserialize};
@@ -56,6 +57,7 @@ where M: for<'b> Deserialize<'b> + Send + 'static
 pub enum Transport {
     Tcp,
     Udp,
+    Ws,
 }
 
 impl Transport {
@@ -72,6 +74,7 @@ impl Transport {
         match self {
             Transport::Tcp => launcher.mount(self.id(), TcpAdapter),
             Transport::Udp => launcher.mount(self.id(), UdpAdapter),
+            Transport::Ws => launcher.mount(self.id(), WsAdapter),
         };
     }
 }
